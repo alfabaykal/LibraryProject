@@ -1,17 +1,17 @@
 package com.alfabaykal.springcourse.library.util;
 
-import com.alfabaykal.springcourse.library.dao.PersonDAO;
 import com.alfabaykal.springcourse.library.models.Person;
+import com.alfabaykal.springcourse.library.services.PeopleService;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 @Component
 public class PersonValidator  implements Validator {
-    private final PersonDAO personDAO;
+    private final PeopleService peopleService;
 
-    public PersonValidator(PersonDAO personDAO) {
-        this.personDAO = personDAO;
+    public PersonValidator(PeopleService peopleService) {
+        this.peopleService = peopleService;
     }
 
     @Override
@@ -23,7 +23,7 @@ public class PersonValidator  implements Validator {
     public void validate(Object o, Errors errors) {
         Person person = (Person) o;
 
-        if (personDAO.show(person.getFullName()).isPresent()) {
+        if (peopleService.findPersonByFullName(person.getFullName()).isPresent()) {
             errors.rejectValue("fullName", "", "Данный читатель уже добавлен");
         }
     }

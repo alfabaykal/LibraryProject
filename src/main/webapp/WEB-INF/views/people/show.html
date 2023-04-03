@@ -16,7 +16,7 @@
     <hr/>
     <p style="font-weight: bold">Книги:</p>
     <div th:each="book: ${books}">
-        <a th:text="${book.bookTitle} + ', ' + ${book.author} + ', ' + ${book.publicationYear}">book</a>
+        <a th:style="${ (book.overdue) ? 'color:red' : null }" th:text="${book.bookTitle} + ', ' + ${book.author} + ', ' + ${book.publicationYear}">book</a>
     </div>
 </div>
 
